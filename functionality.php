@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	import 'dbinfo.php';
+	include 'dbinfo.php';
 	$usn = $_SESSION['username'];
 	$identity = $_SESSION['identity'];
 ?>
@@ -11,12 +11,10 @@
 </head>
 <body>
 <center>
-<br><br><br>
+<br /><br /><br />
 <b><p>Choose functionality</p></b>
 <b><p>Hi <?php echo $usn ?></p></b>
 <?php
-mysql_connect($host,$username,$password) or die( "Unable to connect");;
-mysql_select_db($database) or die( "Unable to select database");
 
 if ($identity == "customer") {
 
