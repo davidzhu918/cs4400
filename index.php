@@ -16,10 +16,10 @@ include 'dbinfo.php';
 session_start(); 
 
 if(isset($_POST['username']) && isset($_POST['password']))  { 
-// $usn = $_POST['username']; //ssn of the text field for employee ssn 
-// $pwd = $_POST['password'];
-	$usn = 'User01';
-	$pwd = 'User01';
+$usn = $_POST['username']; //ssn of the text field for employee ssn 
+$pwd = $_POST['password'];
+	// $usn = 'User01';
+	// $pwd = 'User01';
 // store session data
 $_SESSION['user']=$usn;
 $_SESSION['pwd'] = $pwd;
