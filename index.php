@@ -5,6 +5,6 @@ if (!$link) {
 die('Could not connect: ' . mysql_error());
 }
 mysql_select_db(‘cs4400_Group_18’);
-echo 'Connected successfully';
+echo 'Connected successfullyhaha';
 mysql_close($link);
 ?> 
