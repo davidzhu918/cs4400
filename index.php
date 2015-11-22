@@ -16,8 +16,10 @@ include 'dbinfo.php';
 session_start(); 
 
 if(isset($_POST['username']) && isset($_POST['password']))  { 
-$usn = $_POST['username']; //ssn of the text field for employee ssn 
-$pwd = $_POST['password'];
+// $usn = $_POST['username']; //ssn of the text field for employee ssn 
+// $pwd = $_POST['password'];
+	$usn = 'User01';
+	$pwd = 'User01';
 // store session data
 $_SESSION['user']=$usn;
 $_SESSION['pwd'] = $pwd;
@@ -25,10 +27,9 @@ $_SESSION['pwd'] = $pwd;
 mysql_connect($host,$username,$password) or die( "Unable to connecthaha");;
 mysql_select_db($database) or die( "Unable to select database");
 //Our SQL Query
-$sql_query = "SELECT Username FROM CUSTOMER 
-           WHERE (Username = \"User01\" AND Password = \"User01\")";  
+$sql_query = "SELECT Username FROM CUSTOMER WHERE (Username = $usn AND Password = $pwd)";  
 //Run our sql query
- $result = mysql_query ($sql_query)  or die(mysql_error());  
+$result = mysql_query ($sql_query)  or die(mysql_error());  
 
 //this is where the actual verification happens 
 if(mysql_num_rows($result) == 1){ 
