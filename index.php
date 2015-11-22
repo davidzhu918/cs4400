@@ -1,5 +1,6 @@
 <?php
-$link = mysql_connect('academic-mysql.cc.gatech.edu', 'cs4400_Group_18', '2WXUh8Hn');
+include 'dbinfo.php';
+$link = mysql_connect($host, $username, $password);
 if (!$link) {
 die('Could not connect: ' . mysql_error());
 }
