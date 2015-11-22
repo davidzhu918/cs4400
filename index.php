@@ -41,7 +41,7 @@ if(mysql_num_rows($result) == 1){
        
 }else{ 
     $sql_query = "Select Username From MANAGEMENT 
-    	Where (Username = $usn AND Password = $pwd)";
+			WHERE (Username = '".$usn."' AND Password = '".$pwd."')";  
 
     $result = mysql_query($sql_query) or die(mysql_error());
     if (mysql_num_rows($result) == 1) {
