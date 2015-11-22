@@ -1,10 +1,74 @@
 <?php
 include 'dbinfo.php';
-$link = mysql_connect($host, $username, $password);
-if (!$link) {
-die('Could not connect: ' . mysql_error());
-}
-mysql_select_db(‘cs4400_Group_18’);
-echo 'Connected successfullyhaha';
-mysql_close($link);
 ?> 
+
+
+
+<html>
+<head>
+	<title>Login</title>
+</head>
+<body>
+<center>
+<br><br><br>
+<b><p>Fancy Hotel Login Page</p></b>
+<?php
+session_start(); 
+
+if(isset($_POST['username']) && isset($_POST['password']))  { 
+$username = $_POST['username']; //ssn of the text field for employee ssn 
+$password = $_POST['password'];
+// store session data
+$_SESSION['user']=$ssn;
+//connect to the db 
+mysql_connect($host,$username,$password) or die( "Unable to connect");;
+mysql_select_db($database) or die( "Unable to select database");
+//Our SQL Query
+$sql_query = "Select Username From Customer 
+           Where Username = $username AND Password = $password;";  
+//Run our sql query
+ $result = mysql_query ($sql_query)  or die(mysql_error());  
+
+//this is where the actual verification happens 
+if(mysql_num_rows($result) == 1){ 
+
+	// header('Location: customer.php');
+	echo "<p>Login successfully as Customer";
+	echo "</p>";
+       
+}else{ 
+    $sql_query = "Select Username From Management 
+    	Where Username = $username AND Password = $password";
+
+    $result = mysql_query($sql_query) or die(mysql_error());
+    if (mysql_num_rows($result) == 1) {
+    	// header('Location: manager.php');
+    	echo "<p>Login successfully as Manager";
+		echo "</p>";
+    } else {
+    	$err = 'Incorrect Username/Password'; 
+    }
+}
+    //then just above your login form or where ever you want the error to be displayed you just put in 
+echo "$err";
+} 
+
+echo "<html>"; 
+echo "<head>"; 
+echo "</head>"; 
+echo "<body>"; 
+echo "<form action=\"\" method=\"POST\">"; 
+echo "<p>Username:";  
+echo "<input name=\"username\" maxlength=\"15\"/>"; 
+echo "</p>"; 
+echo "<p>Password:";
+echo "<input name=\"password\" maxlength=\"15\"/>";
+echo "</p>";
+echo "<input type=\"submit\" name=\"login\" value=\"Login\" />";
+echo "</form>"; 
+echo "</body>"; 
+echo "</html>"; 
+?>
+</center>
+</body>
+</html>
