@@ -27,7 +27,8 @@ $_SESSION['pwd'] = $pwd;
 mysql_connect($host,$username,$password) or die( "Unable to connecthaha");;
 mysql_select_db($database) or die( "Unable to select database");
 //Our SQL Query
-$sql_query = "SELECT Username FROM CUSTOMER WHERE (Username = $usn AND Password = $pwd)";  
+$sql_query = "SELECT Username FROM CUSTOMER 
+			WHERE (Username = ' ". $usn. " ' AND Password = ' ". $pwd. " ')";  
 //Run our sql query
 $result = mysql_query ($sql_query)  or die(mysql_error());  
 
