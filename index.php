@@ -19,12 +19,13 @@ if(isset($_POST['username']) && isset($_POST['password']))  {
 $usn = $_POST['username']; //ssn of the text field for employee ssn 
 $pwd = $_POST['password'];
 // store session data
-$_SESSION['user']=$ssn;
+$_SESSION['user']=$usn;
+$_SESSION['pwd'] = $pwd;
 //connect to the db 
 mysql_connect($host,$username,$password) or die( "Unable to connecthaha");;
 mysql_select_db($database) or die( "Unable to select database");
 //Our SQL Query
-$sql_query = "Select Username From Customer 
+$sql_query = "Select Username From CUSTOMER 
            Where Username = $usn AND Password = $pwd;";  
 //Run our sql query
  $result = mysql_query ($sql_query)  or die(mysql_error());  
@@ -37,7 +38,7 @@ if(mysql_num_rows($result) == 1){
 	echo "</p>";
        
 }else{ 
-    $sql_query = "Select Username From Management 
+    $sql_query = "Select Username From MANAGEMENT 
     	Where Username = $usn AND Password = $pwd";
 
     $result = mysql_query($sql_query) or die(mysql_error());
