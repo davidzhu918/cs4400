@@ -36,8 +36,8 @@ $result = mysql_query ($sql_query)  or die(mysql_error());
 if(mysql_num_rows($result) == 1){ 
 
 	// header('Location: customer.php');
-	echo "<p>Login successfully as Customer";
-	echo "</p>";
+	$_SESSION['identity'] = "customer";
+	header('Location: functionality.php');
        
 }else{ 
     $sql_query = "Select Username From MANAGEMENT 
