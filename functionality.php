@@ -19,8 +19,8 @@ mysql_connect($host,$username,$password) or die( "Unable to connect");;
 mysql_select_db($database) or die( "Unable to select database");
 
 if ($identity == "customer") {
-		
-		echo "<a href=\"index.php\"> <p>Make a new reservation</p></a>";
+                
+        echo "<a href=\"index.php\"> <p>Make a new reservation</p></a>";
 
         echo "<form action=\"index.php\" method=\"post\">";
         
