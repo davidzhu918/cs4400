@@ -22,32 +22,15 @@ if ($identity == "customer") {
                 
         echo "<a href=\"index.php\"> <p>Make a new reservation</p></a>";
 
-        echo "<form action=\"index.php\" method=\"post\">";
+        echo "<a href=\"index.php\"> <p>Update your reservation</p></a>";
+
+        echo "<a href=\"index.php\"> <p>Cancel Reservation</p></a>";
+
+        echo "<a href=\"index.php\"> <p>Provide feedback</p></a>";
+
+        echo "<a href=\"index.php\"> <p>View feedbck</p></a>";
+
         
-        echo "Make a new reservation";
-        echo "<input type=\"submit\" value=\"submit\" name=\"submit\">";
-        echo "</form>";
-
-        echo "<form action=\"index.php\" method=\"post\">";
-        echo "Update your reservation";
-        echo "<input type=\"submit\" value=\"submit\" name=\"submit\">";
-        echo "</form>";
-
-        echo "<form action=\"index.php\" method=\"post\">";
-        echo "Cancel Reservation";
-        echo "<input type=\"submit\" value=\"submit\" name=\"submit\">";
-        echo "</form>";
-
-        echo "<form action=\"index.php\" method=\"post\">";
-        echo "Provide feedback";
-        echo "<input type=\"submit\" value=\"submit\" name=\"submit\">";
-        echo "</form>";
-        
-        echo "<form action=\"index.php\" method=\"post\">";
-        echo "View feedback";
-        echo "<input type=\"submit\" value=\"submit\" name=\"submit\">";
-        echo "</form>";
-
 
 }
 
