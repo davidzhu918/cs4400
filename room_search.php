@@ -5,13 +5,11 @@ $usn = $_SESSION['usn'];
 
 if (isset($_POST['logout'])) {
     session_unset();
-    error_reporting(E_ALL);
-    ini_set('display_errors',1);
     header('Location: index.php');
     exit();
 }
 
-mysql_connect($host,$db_username,$db_password) or die( "Unable to connect");;
+mysql_connect($host,$db_username,$db_password) or die( "Unable to connect");
 mysql_select_db($database) or die( "Unable to select database");
 
 if (isset($_POST['start_date']) && isset($_POST['end_date'])) {
@@ -51,7 +49,7 @@ Hi <?php echo $usn ?>
 
 <form action="" method="post">
 Location:
-<select name = "location">
+<select name="location">
     <option value="Atlanta">Atlanta</option>
     <option value="Charlotte">Charlotte</option>
     <option value="Savannah">Savannah</option>

@@ -3,6 +3,23 @@ session_start();
 include 'dbinfo.php';
 $usn = $_SESSION['usn'];
 
+mysql_connect($host,$db_username,$db_password) or die( "Unable to connect");;
+mysql_select_db($database) or die( "Unable to select database");
+
+$start = $_SESSION['start'];
+$end = $_SESSION['end'];
+$location = $_SESSION['location'];
+
+$sql_query = "SELECT    *
+                FROM    ROOM AS RM
+                WHERE   Location = '".$location."' AND NOT EXISTS (
+                            SELECT  RM.*
+                            FROM    ROOM AS RM NATURAL JOIN HAS_ROOM 
+                                        NATURAL JOIN RESERVATION AS R
+                            WHERE   (Cancelled = 0) AND ('".$start."' BETWEEN R.StartDate AND R.EndDate
+                                    OR '".$end."' BETWEEN R.StartDate AND R.EndDate))";
+$result = mysql_query($sql_query) or die(mysql_error());
+
 if (isset($_POST['logout'])) {
     session_unset();
     header('Location: index.php');
@@ -10,15 +27,28 @@ if (isset($_POST['logout'])) {
 }
 
 if (isset($_POST['select_room'])) {
-    redirect('room_book.php');
+    $i = 0;
+    while ($row = mysql_fetch_array($result)) {
+        if ($_POST[$row['RoomID']] == "on") {
+            $room_arr[$i] = $row;
+            $i++;
+        }
+    }
+    if (count($room_arr) == 0) {
+        $err = "Please select at least one room";
+    } else {
+        $_SESSION['room_arr'] = $room_arr;
+        redirect('room_book.php');
+    }
 }
 
 if (isset($_POST['go_back'])) {
+    unset($_SESSION['location']);
+    unset($_SESSION['start']);
+    unset($_SESSION['end']);
     redirect('search_room.php');
 }
 
-mysql_connect($host,$db_username,$db_password) or die( "Unable to connect");;
-mysql_select_db($database) or die( "Unable to select database");
 ?>
 
 <html>
@@ -31,11 +61,12 @@ Hi <?php echo $usn ?>
 <input type="submit" name="logout" value="Logout" />
 </form>
 
-<?php
-$start = $_SESSION['start'];
-$end = $_SESSION['end'];
-$location = $_SESSION['location'];
+<body>
+<center>
+<br><br><br>
+<b><p>Available RoomsMa</p></b>
 
+<?php
 $sql_query = "SELECT    *
                 FROM    ROOM AS RM
                 WHERE   Location = '".$location."' AND NOT EXISTS (
@@ -64,13 +95,18 @@ if (mysql_num_rows($result) == 0) {
         echo "<td>".$row['RoomID']."</td>";
         echo "<td>".$row['Category']."</td>";
         echo "<td>".$row['NumPeople']."</td>";
-        echo "<td>".$row['CostPerDay']."</td>";
-        echo "<td>".$row['CostBedPerDay']."</td>";
+        echo "<td>$ ".$row['CostPerDay']."</td>";
+        echo "<td>$ ".$row['CostBedPerDay']."</td>";
         echo "<td><input type=\"checkbox\" name=\"".$row['RoomID']."\" /></td>";
         echo "</tr>";
     }
-    echo "</table>";
-
-    echo "<input type=\"submit\" name=\"select_room\" value=\"Next\" /></form>";
+    echo "</table><br>";
+    echo "<input type=\"submit\" name=\"select_room\" value=\"Check Detail\" /></form>";
 }
+
+echo $err;
 ?>
+
+</center>
+</body>
+</html>
