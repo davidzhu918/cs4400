@@ -6,21 +6,37 @@ $room_arr = $_SESSION['room_arr'];
 $start = $_SESSION['start'];
 $end = $_SESSION['end'];
 
+mysql_connect($host,$db_username,$db_password) or die( "Unable to connect");
+mysql_select_db($database) or die( "Unable to select database");
+
+$sql_query = "SELECT            CardID AS card_id
+                FROM            PAYMENT_INFO 
+                WHERE BINARY    Username = '".$usn."' AND
+                                ExpDate > ".$today;  
+$result = mysql_query($sql_query)  or die(mysql_error());
+
 if (isset($_POST['logout'])) {
     session_unset();
     header('Location: index.php');
     exit();
 }
 
+
+if (isset($_POST['go_back'])) {
+    unset($_SESSION['room_arr']);
+    unset($_SESSION['extra_bed']);
+    unset($_SESSION['total_cost']);
+    redirect('rooms_available.php');
+}
+
 if (isset($_POST['submit'])) {
     if (isset($_POST['card'])) {
         $_SESSION['card'] = $_POST['card'];
-        redirect('confirmation.php');
+        redirect('room_confirmation.php');
     }
     $err = "Please add a card";
 }
 
-$extra = 0;
 if (isset($_POST['update'])) {
     $extra = 0;
     $j = 0;
@@ -37,15 +53,6 @@ if (isset($_POST['update'])) {
     $extra = 0;
 
 }
-
-mysql_connect($host,$db_username,$db_password) or die( "Unable to connect");
-mysql_select_db($database) or die( "Unable to select database");
-
-$sql_query = "SELECT            CardID AS card_id
-                FROM            PAYMENT_INFO 
-                WHERE BINARY    Username = '".$usn."' AND
-                                ExpDate > ".date(Y-m-d);  
-$result = mysql_query($sql_query)  or die(mysql_error());
 ?>
 
 <html>
@@ -53,7 +60,7 @@ $result = mysql_query($sql_query)  or die(mysql_error());
         <title>Book Rooms</title>
 </head>
 
-Hi <?php echo $usn ?>
+Hi <?php echo $usn; ?>
 <form action="" method="POST" />
 <input type="submit" name="logout" value="Logout" />
 </form>
@@ -103,7 +110,7 @@ for ($i = 0; $i < count($room_arr); $i++) {
 Total Cost: 
 <?php
 $total_cost = $cost + $extra;
-$total_cost *= (abs(strtotime($end) - strtotime($start)))/86400;
+$total_cost *= (strtotime($end) - strtotime($start))/86400;
 $_SESSION['total_cost'] = $total_cost;
 echo "$ ".$total_cost.".00";
 ?>
@@ -124,6 +131,7 @@ Select Card:
 ?>
 
 <input type="submit" name="submit" value="Submit" />
+<input type="submit" name="go_back" value="Go Back" />
 </form>
 <?php
 echo $err;

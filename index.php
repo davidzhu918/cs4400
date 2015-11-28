@@ -2,17 +2,13 @@
 session_start();
 include 'dbinfo.php';
 
-if (isset($_SESSION['usn']) && isset($_SESSION['pwd'])) {
-    redirect("functionality_".$_SESSION['identity'].".php");
-}
-
 if(isset($_POST['username']) && isset($_POST['password']))  { 
     $usn = $_POST['username']; //ssn of the text field for employee ssn 
     $pwd = $_POST['password'];
         // $usn = 'User01';
         // $pwd = 'User01';
     //connect to the db 
-    mysql_connect($host,$db_username,$db_password) or die( "Unable to connecthaha");;
+    mysql_connect($host,$db_username,$db_password) or die( "Unable to connect");;
     mysql_select_db($database) or die( "Unable to select database");
     //Our SQL Query
     $sql_query = "SELECT Username FROM CUSTOMER 
@@ -25,7 +21,6 @@ if(isset($_POST['username']) && isset($_POST['password']))  {
 
         // store session data
         $_SESSION['usn']= $usn;
-        $_SESSION['pwd'] = $pwd;
         $_SESSION['identity'] = "customer";
 
         redirect('functionality_customer.php');
@@ -38,16 +33,18 @@ if(isset($_POST['username']) && isset($_POST['password']))  {
     if (mysql_num_rows($result) == 1) {
         // store session data
         $_SESSION['usn']= $usn;
-        $_SESSION['pwd'] = $pwd;
         $_SESSION['identity'] = "manager";
 
         redirect('functionality_manager.php');
         exit();
-    } else {
-        $err = 'Incorrect Username/Password'; 
     }
+
     //then just above your login form or where ever you want the error to be displayed you just put in 
-    echo "$err";
+    echo "Incorrect Username/Password";
+}
+
+if (isset($_SESSION['usn'])) {
+    redirect("functionality_".$_SESSION['identity'].".php");
 }
 ?>
 

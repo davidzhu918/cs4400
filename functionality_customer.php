@@ -4,8 +4,6 @@ $usn = $_SESSION['usn'];
 
 if (isset($_POST['logout'])) {
     session_unset();
-    error_reporting(E_ALL);
-    ini_set('display_errors',1);
     header('Location: index.php');
     exit();
 }
@@ -30,11 +28,11 @@ Hi <?php echo $usn ?>
 
 <a href="rsv_update.php"> <p>Update your reservation</p></a>
 
-<a href="rsv_cancel.php"> <p>Cancel Reservation</p></a>
+<a href="rsv_cancel.php"> <p>Cancel reservation</p></a>
 
-<a href="giva_feedback.php"> <p>Provide feedback</p></a>
+<a href="feedback_give.php"> <p>Provide feedback</p></a>
 
-<a href="view_feedback.php"> <p>View feedbck</p></a>
+<a href="feedback_view.php"> <p>View feedbck</p></a>
 
 </center>
 </body>
