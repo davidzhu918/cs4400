@@ -1,8 +1,8 @@
 <?php
 session_start();
 include 'dbinfo.php';
-//$usn = $_SESSION['usn'];
-$usn = 'User01';
+$usn = $_SESSION['usn'];
+
 
 
 mysql_connect($host,$db_username,$db_password) or die( "Unable to connect");
