@@ -47,7 +47,7 @@ if (isset($_POST['submit'])) {
                          FROM (RESERVATION NATURAL JOIN HAS_ROOM)
                     ) AS K
                     WHERE M = 8 OR M = 9
-                    GROUP BY    M, Location = '".$location."'";
+                    GROUP BY M, Location";
 
     $result = mysql_query ($sql_query)  or die(mysql_error());
 
@@ -57,8 +57,7 @@ if (isset($_POST['submit'])) {
         <td>Total Number of Reservations</td></tr>";
     while ($row = mysql_fetch_array($result)) {
         echo "<tr>";
-        $tuple = $row['M'];
-        echo "<td>".$tuple."</td>";
+        echo "<td>".$row['M']."</td>";
         echo "<td>".$row['Location']."</td>";
         echo "<td>".$row['NumReservation']."</td>";
         echo "</tr>";
