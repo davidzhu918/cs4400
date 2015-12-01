@@ -33,7 +33,7 @@ mysql_select_db($database) or die( "Unable to select database");
 $sql_query = "SELECT    RM.*, IncludeExtraBed
                 FROM    ROOM AS RM NATURAL JOIN HAS_ROOM
                         NATURAL JOIN RESERVATION
-                WHERE   ReservationID = ".$rsv['ReservationID'];
+                WHERE   ReservationID = '".$rsv['ReservationID']."'";
 $result = mysql_query($sql_query) or die(mysql_error());
 ?>
 

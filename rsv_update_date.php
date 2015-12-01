@@ -35,17 +35,16 @@ if (isset($_POST['start']) && isset($_POST['end'])) {
         mysql_connect($host,$db_username,$db_password) or die( "Unable to connect");;
         mysql_select_db($database) or die( "Unable to select database");
 
-        $sql_query = "SELECT    *
-                    FROM    ROOM AS RM
-                    WHERE   Location = '".$location."' AND NOT EXISTS (
-                                SELECT  RM.*
-                                FROM    ROOM AS RM NATURAL JOIN HAS_ROOM 
-                                        NATURAL JOIN RESERVATION AS R
-                                WHERE   (Cancelled = 0) AND ('".$start_date."' BETWEEN R.StartDate AND R.EndDate
-                                        OR '".$end_date."' BETWEEN R.StartDate AND R.EndDate))";
+        $sql_query = "SELECT    COUNT(*) AS Conflicts
+                    FROM    ROOM AS RM LEFT OUTER JOIN 
+                            (RESERVATION NATURAL JOIN HAS_ROOM 
+                            ON R.ReservationID <> reservation_id)
+                    WHERE   (RM.RoomID = room_id) AND (Location = loc) 
+                            AND (Cancelled = 0) AND ((new_start > StartDate) AND 
+                            (new_start < EndDate) OR (new_end > StartDate) AND (new_end < EndDate))";
+        
         $result = mysql_query($sql_query) or die(mysql_error());
-
-        if (mysql_num_rows($result) == 0) {
+        if (mysql_fetch_object($result) == 0) {
             $err = 'Room not available';
 
         } else {
