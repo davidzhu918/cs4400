@@ -6,8 +6,7 @@ if (isset($_POST['login'])) {
 if (isset($_POST['username']) && isset($_POST['password']))  { 
     $usn = $_POST['username']; //ssn of the text field for employee ssn 
     $pwd = $_POST['password'];
-        // $usn = 'User01';
-        // $pwd = 'User01';
+    
     //connect to the db 
     mysql_connect($host,$db_username,$db_password) or die( "Unable to connect");;
     mysql_select_db($database) or die( "Unable to select database");

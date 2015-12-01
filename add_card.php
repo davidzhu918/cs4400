@@ -56,12 +56,14 @@ if (isset($_POST['delete'])) {
         $card_id = $_POST['card'];
         $sql_query = "DELETE FROM PAYMENT_INFO
         				WHERE 	CardID = '".$card_id."' AND Username = '".$usn."'";
-        $result = mysql_query($sql_query) or die(mysql_error());
+        $result = mysql_query($sql_query) or $err = "Delete failed";
         redirect('add_card.php');
     }
 }
 
 if (isset($_POST['done'])) {
+    error_reporting(E_ALL);
+ini_set('display_errors','On');
 	redirect('room_book.php');
 }
 ?>
@@ -81,6 +83,7 @@ Hi <?php echo $usn; ?>
 <body>
 <center>
 <br><b>Payment Information</p></b>
+<form action="" method="POST" />
 <table>
 	<tr>
 		<td>
@@ -108,7 +111,6 @@ Hi <?php echo $usn; ?>
 	<tr>
 		<td>
 			<p><b>Delete Card</b></p>
-			<form action="" method="POST" />
 				<p>Card Number:
 					<?php
     					if (mysql_num_rows($result) != 0) {
@@ -122,13 +124,11 @@ Hi <?php echo $usn; ?>
 					?>
 				</p>
 				<input type="submit" name="delete" value="Delete" />
-			</form>
 		</td>
 	</tr>
 </table>
-<p>
-	<input type="submit" name="done" value="Finish" />
-</p>
+<input type="submit" name="done" value="Finish" />
+</form>
 </center>
 </body>
 </html>
