@@ -7,7 +7,7 @@ $start = $_SESSION['start'];
 $end = $_SESSION['end'];
 $total_cost = $_SESSION['total_cost'];
 $rsv = $_SESSION['rsv'];
-$rsv_id = $_SESSION['ReservationID'];
+$rsv_id = $rsv['ReservationID'];
 
 if (isset($_POST['logout'])) {
     session_unset();
