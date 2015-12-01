@@ -54,7 +54,7 @@ if (isset($_POST['nameOnCard']) && isset($_POST['cardNumber'])
 if (isset($_POST['delete'])) {
 	if (isset($_POST['card'])) {
         $card_id = $_POST['card'];
-
+        echo "$card_id";
         // $sql_query = "UPDATE PAYMENT_INFO
         //                 SET     CardID = '0000000000000000'
         // 				WHERE 	CardID = '".$card_id."' AND Username = '".$usn."'";
@@ -84,7 +84,7 @@ Hi <?php echo $usn; ?>
 
 <body>
 <center>
-<br><b>Payment Information: <?php echo $card_id;?></p></b>
+<br><b>Payment Information</p></b>
 <table>
 	<tr>
 		<td>
@@ -133,6 +133,7 @@ Hi <?php echo $usn; ?>
 <form action="" method="POST" />
 <input type="submit" name="done" value="Finish" />
 </form>
+<?php echo $card_id;?>
 </center>
 </body>
 </html>
