@@ -44,6 +44,10 @@ if (isset($_POST['delete'])) {
         redirect('add_card.php');
     }
 }
+
+if (isset($_POST['done'])) {
+	redirect('room_book.php');
+}
 ?>
 
 
@@ -103,6 +107,9 @@ Hi <?php echo $usn; ?>
 		</td>
 	</tr>
 </table>
+<p>
+	<input type="submit" name="done" value="Finish" />
+</p>
 </center>
 </body>
 </html>
