@@ -1,11 +1,13 @@
 <?php
 session_start();
 include 'dbinfo.php';
-$usn = $_SESSION['usn'];
+//$usn = $_SESSION['usn'];
+$usn = 'User01';
 
 
 mysql_connect($host,$db_username,$db_password) or die( "Unable to connect");
 mysql_select_db($database) or die( "Unable to select database");
+
 $sql_query = "SELECT            CardID AS card_id
                 FROM            PAYMENT_INFO 
                 WHERE BINARY    Username = '".$usn."' AND
