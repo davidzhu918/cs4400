@@ -32,7 +32,7 @@ Hi <?php echo $usn ?>
 
 <a href="feedback_give.php"> <p>Provide feedback</p></a>
 
-<a href="feedback_view.php"> <p>View feedbck</p></a>
+<a href="feedback_view.php"> <p>View feedback</p></a>
 
 </center>
 </body>
