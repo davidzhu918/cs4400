@@ -56,7 +56,7 @@ if (isset($_POST['delete'])) {
         $card_id = $_POST['card'];
         $sql_query = "UPDATE PAYMENT_INFO
                         SET     CardID = '0000000000000000'
-        				WHERE 	CardID == '".$card_id."' AND Username == '".$usn."'";
+        				WHERE 	CardID = '".$card_id."' AND Username = '".$usn."'";
         $result = mysql_query($sql_query);
         redirect('add_card.php');
     }
