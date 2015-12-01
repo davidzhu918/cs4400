@@ -42,8 +42,8 @@ if (isset($_POST['start']) && isset($_POST['end'])) {
                             (RESERVATION NATURAL JOIN HAS_ROOM 
                             ON R.ReservationID <> ".$rsv_id.")
                     WHERE   (RM.RoomID = ".$room_id.") AND (RM.Location = '".$location."') 
-                            AND (Cancelled = 0) AND ((".$start_date." > StartDate) AND 
-                            ('".$start_date."'' < EndDate) OR ('".$start_date."' > StartDate) 
+                            AND (Cancelled = 0) AND (('".$start_date."' > StartDate) AND 
+                            ('".$start_date."' < EndDate) OR ('".$start_date."' > StartDate) 
                             AND ('".$start_date."' < EndDate))";
         
         $result = mysql_query($sql_query) or die(mysql_error());
