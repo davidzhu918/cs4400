@@ -41,7 +41,7 @@ if (isset($_POST['start']) && isset($_POST['end'])) {
                     FROM    ROOM AS RM LEFT OUTER JOIN 
                             (RESERVATION NATURAL JOIN HAS_ROOM 
                             ON R.ReservationID <> ".$rsv_id.")
-                    WHERE   (RM.RoomID = ".$room_id.") AND (Location = ".$location.") 
+                    WHERE   (RM.RoomID = ".$room_id.") AND (Location = '".$location."') 
                             AND (Cancelled = 0) AND ((".$start_date." > StartDate) AND 
                             (".$start_date." < EndDate) OR (".$start_date." > StartDate) 
                             AND (".$start_date." < EndDate))";
