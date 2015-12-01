@@ -7,6 +7,7 @@ $start = $_SESSION['start'];
 $end = $_SESSION['end'];
 $total_cost = $_SESSION['total_cost'];
 $rsv = $_SESSION['rsv'];
+$rsv_id = $_SESSION['ReservationID'];
 
 if (isset($_POST['logout'])) {
     session_unset();
@@ -44,7 +45,7 @@ Hi <?php echo $usn; ?>
 <center>
 <br><br><br>
 <b><p>Congratulations! Your reservation is updated!</p></b>
-Your Reservation ID: <?php echo $id; ?>
+Your Reservation ID: <?php echo $rsv_id; ?>
 <br>
 Please save this reservation ID for all further communication.
 <br><br>
