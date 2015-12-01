@@ -85,7 +85,7 @@ Hi <?php echo $usn; ?>
 			<p><b>Add Card</b></p>
 			<form action="" method="POST" />
 			<p>Name On Card:
-			<input name="nameOnCard" maxlength="30" />
+			<input type="text" name="nameOnCard" maxlength="30" />
 			</p>
 			<p>Card Number:
 			<input type="text" name="cardNumber" />
