@@ -54,7 +54,8 @@ if (isset($_POST['nameOnCard']) && isset($_POST['cardNumber'])
 if (isset($_POST['delete'])) {
 	if (isset($_POST['card'])) {
         $card_id = $_POST['card'];
-        $sql_query = "DELETE FROM PAYMENT_INFO
+        $sql_query = "UPDATE PAYMENT_INFO
+                        SET     CardID = '0000000000000000'
         				WHERE 	CardID = '".$card_id."' AND Username = '".$usn."'";
         $result = mysql_query($sql_query);
         redirect('add_card.php');
@@ -112,8 +113,8 @@ Hi <?php echo $usn; ?>
 			<p><b>Delete Card</b></p>
 				<p>Card Number:
 					<?php
+                        echo "<select name=\"card\">";
     					if (mysql_num_rows($result) != 0) {
-        					echo "<select name=\"card\">";
         					$i = 0;
         					while ($row = mysql_fetch_array($result)) {
             					echo "<option value=\"".$row['card_id']."\">".substr($row['card_id'], -4)."</option>";
