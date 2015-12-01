@@ -10,7 +10,7 @@ mysql_select_db($database) or die( "Unable to select database");
 
 $sql_query = "SELECT            CardID AS card_id
                 FROM            PAYMENT_INFO 
-                WHERE BINARY    Username = '".$usn."' AND
+                WHERE BINARY    Username == '".$usn."' AND
                                 ExpDate > ".$today; 
 
 $result = mysql_query($sql_query)  or die(mysql_error());
@@ -55,7 +55,7 @@ if (isset($_POST['delete'])) {
 	if (isset($_POST['card'])) {
         $card_id = $_POST['card'];
         $sql_query = "DELETE FROM PAYMENT_INFO
-        				WHERE 	CardID = '".$card_id."' AND Username = '".$usn."'";
+        				WHERE 	CardID == '".$card_id."' AND Username == '".$usn."'";
         $result = mysql_query($sql_query) or die(mysql_error());
         redirect('add_card.php');
     }

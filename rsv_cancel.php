@@ -23,7 +23,7 @@ if (isset($_POST['id'])) {
                     FROM    ROOM AS RM
                             NATURAL JOIN RESERVATION AS R
                             NATURAL JOIN HAS_ROOM
-                    WHERE   Username = '".$usn."' AND ReservationID = ".$id." AND Cancelled
+                    WHERE   Username == '".$usn."' AND ReservationID = ".$id." AND Cancelled
                             = 0 AND StartDate >= ".$today;
     $result = mysql_query($sql_query);
 

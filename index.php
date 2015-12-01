@@ -13,7 +13,7 @@ if (isset($_POST['username']) && isset($_POST['password']))  {
     mysql_select_db($database) or die( "Unable to select database");
     //Our SQL Query
     $sql_query = "SELECT Username FROM CUSTOMER 
-                WHERE BINARY (Username = '".$usn."' AND Password = '".$pwd."')";  
+                WHERE BINARY (Username == '".$usn."' AND Password == '".$pwd."')";  
     //Run our sql query
     $result = mysql_query ($sql_query)  or die(mysql_error());  
 
@@ -28,7 +28,7 @@ if (isset($_POST['username']) && isset($_POST['password']))  {
         exit();
     }
     $sql_query = "SELECT Username FROM MANAGEMENT 
-            WHERE BINARY (Username = '".$usn."' AND Password = '".$pwd."')";  
+            WHERE BINARY (Username == '".$usn."' AND Password == '".$pwd."')";  
 
     $result = mysql_query($sql_query) or die(mysql_error());
     if (mysql_num_rows($result) == 1) {

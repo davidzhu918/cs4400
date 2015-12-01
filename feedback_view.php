@@ -53,7 +53,7 @@ if (isset($_POST['submit'])) {
 
     $sql_query = "SELECT    Rating, CustComment
                     FROM    HOTEL_REVIEW
-                    WHERE   Location = '".$location."'";
+                    WHERE   Location == '".$location."'";
     $result = mysql_query ($sql_query)  or die(mysql_error());
 
     echo "<table border=\"1\"><tr>
