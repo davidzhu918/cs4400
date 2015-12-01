@@ -11,7 +11,7 @@ mysql_select_db($database) or die( "Unable to select database");
 
 $sql_query = "SELECT            CardID AS card_id
                 FROM            PAYMENT_INFO 
-                WHERE BINARY    Username = '".$usn."' AND
+                WHERE BINARY    Username == '".$usn."' AND
                                 ExpDate > ".$today;  
 $result = mysql_query($sql_query)  or die(mysql_error());
 

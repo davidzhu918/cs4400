@@ -2,7 +2,8 @@
 session_start();
 include 'dbinfo.php';
 
-if(isset($_POST['username']) && isset($_POST['password']))  { 
+if (isset($_POST['login'])) {
+if (isset($_POST['username']) && isset($_POST['password']))  { 
     $usn = $_POST['username']; //ssn of the text field for employee ssn 
     $pwd = $_POST['password'];
         // $usn = 'User01';
@@ -45,6 +46,10 @@ if(isset($_POST['username']) && isset($_POST['password']))  {
 
 if (isset($_SESSION['usn'])) {
     redirect("functionality_".$_SESSION['identity'].".php");
+}    
+}
+if (isset($_POST['signup'])) { 
+    redirect('user_registration.php');
 }
 ?>
 
@@ -71,6 +76,7 @@ if (isset($_SESSION['usn'])) {
 <input name="password" maxlength="15"/>
 </p>
 <input type="submit" name="login" value="Login" />
+<input type="submit" name="signup" value="Sign Up" />
 </form>
 </body>
 </html>

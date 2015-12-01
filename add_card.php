@@ -28,15 +28,17 @@ if (isset($_POST['nameOnCard']) && isset($_POST['cardNumber'])
 	$exp_date = $_POST['expDate'] . '-01';
 	$cvv = $_POST['cvv'];
 	$err = '';
-	if (!ereg("^[a-zA-Z]+$", $name_on_card)) {
+
+
+	if (preg_match('/[^A-Za-z]/', $name_on_card)) {
 		$err = 'Name should only contain english letters';
-	} else if (!preg_match('/[^0-9]/', $card_number)) {
+	} else if (preg_match('/[^0-9]/', $card_number)) {
 		$err = 'Card Number should be numerical';
 	} else if (strlen($card_number) != 16) {
 		$err = 'Card number should be a 16 digits serial number';
 	} else if ($exp_date < $today) {
 		$err = 'Card already expired';
-	} else if (!preg_match('/[^0-9]/', $cvv)) {
+	} else if (preg_match('/[^0-9]/', $cvv)) {
 		$err = 'cvv should be numerical';
 	} else {
 		$sql_query = "INSERT INTO PAYMENT_INFO
