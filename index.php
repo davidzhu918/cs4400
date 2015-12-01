@@ -48,6 +48,8 @@ if (isset($_SESSION['usn'])) {
 }    
 }
 if (isset($_POST['signup'])) { 
+    error_reporting(E_ALL);
+ini_set('display_errors','On');
     redirect('user_registration.php');
 }
 ?>
