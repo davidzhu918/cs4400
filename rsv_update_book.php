@@ -6,6 +6,12 @@ $rsv = $_SESSION['rsv'];
 $start = $_SESSION['start'];
 $end = $_SESSION['end'];
 
+if (isset($_POST['logout'])) {
+    session_unset();
+    header('Location: index.php');
+    exit();
+}
+
 if (isset($_POST['submit'])) {
     redirect('rsv_update_confirmation.php');
 }
