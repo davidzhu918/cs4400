@@ -109,8 +109,10 @@ for ($i = 0; $i < count($room_arr); $i++) {
 
 Total Cost: 
 <?php
+$total_duration = (strtotime($end) - strtotime($start))/86400;
+$total_duration = round($total_duration); 
 $total_cost = $cost + $extra;
-$total_cost *= (strtotime($end) - strtotime($start))/86400;
+$total_cost *= $total_duration;
 $_SESSION['total_cost'] = $total_cost;
 echo "$ ".$total_cost.".00";
 ?>
