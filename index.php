@@ -6,19 +6,22 @@ if (isset($_POST['login'])) {
 if (isset($_POST['username']) && isset($_POST['password']))  { 
     $usn = $_POST['username']; //ssn of the text field for employee ssn 
     $pwd = $_POST['password'];
-        // $usn = 'User01';
-        // $pwd = 'User01';
+    
     //connect to the db 
     mysql_connect($host,$db_username,$db_password) or die( "Unable to connect");;
     mysql_select_db($database) or die( "Unable to select database");
     //Our SQL Query
-    $sql_query = "SELECT Username FROM CUSTOMER 
-                WHERE BINARY (Username == '".$usn."' AND Password == '".$pwd."')";  
+
+
+
+    $sql_query = "SELECT COUNT(*) FROM CUSTOMER 
+                WHERE BINARY (Username = '".$usn."' AND Password = '".$pwd."')";  
+
     //Run our sql query
     $result = mysql_query ($sql_query)  or die(mysql_error());  
 
     //this is where the actual verification happens 
-    if(mysql_num_rows($result) == 1){ 
+    if(mysql_fetch_object($result) == 1){ 
 
         // store session data
         $_SESSION['usn']= $usn;
@@ -27,11 +30,15 @@ if (isset($_POST['username']) && isset($_POST['password']))  {
         redirect('functionality_customer.php');
         exit();
     }
-    $sql_query = "SELECT Username FROM MANAGEMENT 
-            WHERE BINARY (Username == '".$usn."' AND Password == '".$pwd."')";  
+
+
+
+    $sql_query = "SELECT COUNT(*) FROM MANAGEMENT 
+            WHERE BINARY (Username = '".$usn."' AND Password = '".$pwd."')";  
+
 
     $result = mysql_query($sql_query) or die(mysql_error());
-    if (mysql_num_rows($result) == 1) {
+    if (mysql_fetch_object($result) == 1) {
         // store session data
         $_SESSION['usn']= $usn;
         $_SESSION['identity'] = "manager";
@@ -49,6 +56,8 @@ if (isset($_SESSION['usn'])) {
 }    
 }
 if (isset($_POST['signup'])) { 
+    error_reporting(E_ALL);
+ini_set('display_errors','On');
     redirect('user_registration.php');
 }
 ?>
@@ -73,7 +82,7 @@ if (isset($_POST['signup'])) {
 <input name="username" maxlength="15"/>
 </p>
 <p>Password:
-<input name="password" maxlength="15"/>
+<input type="password" name="password" maxlength="15"/>
 </p>
 <input type="submit" name="login" value="Login" />
 <input type="submit" name="signup" value="Sign Up" />

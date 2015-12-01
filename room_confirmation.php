@@ -27,7 +27,7 @@ if (isset($_POST['go_back'])) {
 mysql_connect($host,$db_username,$db_password) or die( "Unable to connect");
 mysql_select_db($database) or die( "Unable to select database");
 
-$sql_query = "SELECT    COUNT(*) + 1 AS id
+$sql_query = "SELECT    MAX(ReservationID) + 1 AS id
                 FROM    RESERVATION";
 $result = mysql_query($sql_query) or die(mysql_error());
 
