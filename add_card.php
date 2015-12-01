@@ -28,7 +28,7 @@ if (isset($_POST['nameOnCard']) && isset($_POST['cardNumber'])
 	$exp_date = $_POST['expDate'] . '-01';
 	$cvv = $_POST['cvv'];
 	$err = '';
-	if (!preg_match('/[^A-Za-z]/', $name_on_card)) {
+	if (!ereg("^[a-zA-Z]+$", $name_on_card)) {
 		$err = 'Name should only contain english letters';
 	} else if (!preg_match('/[^0-9]/', $card_number)) {
 		$err = 'Card Number should be numerical';
