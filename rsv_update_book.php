@@ -71,7 +71,7 @@ Rooms are available. Please confirm details below before submitting.
         echo "<td>".$row['NumPeople']."</td>";
         echo "<td>$ ".$row['CostPerDay']."</td>";
         echo "<td>$ ".$row['CostBedPerDay']."</td>";
-        echo "<td><input type=\"checkbox\" checked=\"".$row['IncludeExtraBed'] == 1 ? "checked" : "unchecked"."\" /></td>";
+        echo "<td><input type=\"checkbox\" checked=\"".$row['IncludeExtraBed'] == 1 ? "checked" : "unchecked"."\ /></td>";
         echo "</tr>";
     }
     ?>
