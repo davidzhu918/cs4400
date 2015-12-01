@@ -4,7 +4,8 @@ $db_username = 'cs4400_Group_18';
 $db_password = '2WXUh8Hn';
 $host = 'academic-mysql.cc.gatech.edu';   
 $database = 'cs4400_Group_18';
-$today = date("Y-m-d");
+//$today = date("Y-m-d");
+$today = '2015-01-01';
 
 function redirect($url)
 {

@@ -86,7 +86,7 @@ $_SESSION['new_total'] = $total - $refund;
 echo "$ ".$refund.".00";
 ?>
 <form action="" method="POST">
-<input type="submit" name="cancel" value="Cancel" />
+<input type="submit" name="cancel" value="Comfirm" />
 <input type="submit" name="go_back" value="Go Back" />
 </form>
 
