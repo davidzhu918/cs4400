@@ -2,6 +2,7 @@
 session_start();
 include 'dbinfo.php';
 $usn = $_SESSION['usn'];
+$id = $_SESSION['id'];
 
 $new_total = $_SESSION['new_total'];
 
@@ -9,7 +10,8 @@ mysql_connect($host,$db_username,$db_password) or die( "Unable to connect");
 mysql_select_db($database) or die( "Unable to select database");
 
 $sql_query = "UPDATE    RESERVATION
-                SET     TotalCost = ".$new_total.", Cancelled = 1";
+                SET     TotalCost = ".$new_total.", Cancelled = 1
+                WHERE   ReservationID = ".$id;
 $result = mysql_query($sql_query) or die(mysql_error());
 
 if (isset($_POST['logout'])) {

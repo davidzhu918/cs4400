@@ -79,7 +79,7 @@ $result = mysql_query($sql_query) or die(mysql_error());
 
 echo "<form action=\"\" method=\"POST\" />";
 if (mysql_num_rows($result) == 0) {
-    echo "hoho";
+    echo "No rooms available";
 } else {
     echo "<table border=\"1\"><tr>
         <td>Room Number</td>

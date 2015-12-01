@@ -32,6 +32,7 @@ if (isset($_POST['id'])) {
         $_SESSION['start'] = $row['StartDate'];
         $_SESSION['end'] = $row['EndDate'];
         $_SESSION['total'] = $row['TotalCost'];
+        $_SESSION['id'] = $id;
 
         $room_arr[0] = $row;
         $i = 1;
