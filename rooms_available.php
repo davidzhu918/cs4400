@@ -70,9 +70,9 @@ Hi <?php echo $usn; ?>
 $sql_query = "SELECT * 
             FROM ROOM AS RM
             WHERE RM.Location =  '".$location."' AND (RM.RoomID NOT IN (
-                SELECT RMM.RoomID
-                FROM ROOM AS RMM NATURAL JOIN HAS_ROOM NATURAL JOIN RESERVATION AS R
-                WHERE (Cancelled =0) AND ('".$start."' BETWEEN R.StartDate 
+                SELECT RM.RoomID
+                FROM ROOM AS RM NATURAL JOIN HAS_ROOM NATURAL JOIN RESERVATION AS R
+                WHERE (Cancelled = 0) AND ('".$start."' BETWEEN R.StartDate 
                     AND R.EndDate OR  '".$end."' BETWEEN R.StartDate AND R.EndDate)))";
 $result = mysql_query($sql_query) or die(mysql_error());
 
