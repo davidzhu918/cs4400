@@ -31,7 +31,7 @@ if (isset($_POST['nameOnCard']) && isset($_POST['cardNumber'])
 	$sql_query = "INSERT INTO PAYMENT_INFO
 				VALUES 	('".$card_number."', '".$cvv."', '".$exp_date."', '".$name_on_card."', '".$usn."')";
 	$result = mysql_query($sql_query) or die(mysql_error());
-	//redirect('add_card.php');
+	redirect('add_card.php');
 
 }
 
@@ -41,7 +41,7 @@ if (isset($_POST['delete'])) {
         $sql_query = "DELETE FROM PAYMENT_INFO
         				WHERE 	CardID = '".$card_id."' AND Username = '".$usn."'";
         $result = mysql_query($sql_query) or die(mysql_error());
-        //redirect('add_card.php');
+        redirect('add_card.php');
     }
 }
 ?>
