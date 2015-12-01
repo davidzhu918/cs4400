@@ -19,7 +19,7 @@ if (isset($_POST['id'])) {
     mysql_connect($host,$db_username,$db_password) or die( "Unable to connect");;
     mysql_select_db($database) or die( "Unable to select database");
 
-    $sql_query = "SELECT DISTINCT    StartDate, EndDate, Location
+    $sql_query = "SELECT DISTINCT    StartDate, EndDate, Location, ReservationID, RoomID
                     FROM    RESERVATION NATURAL JOIN HAS_ROOM
                     WHERE   ReservationID = ".$id." AND Cancelled
                             = 0 AND StartDate > ".$today;

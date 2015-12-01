@@ -7,6 +7,8 @@ $rsv = $_SESSION['rsv'];
 $cur_start = $rsv['StartDate'];
 $cur_end = $rsv['EndDate'];
 $location = $rsv['Location'];
+$rsv_id = $rsv['ReservationID'];
+$room_id = $rsv['RoomID'];
 
 if (isset($_POST['logout'])) {
     session_unset();
@@ -38,10 +40,11 @@ if (isset($_POST['start']) && isset($_POST['end'])) {
         $sql_query = "SELECT    COUNT(*) AS Conflicts
                     FROM    ROOM AS RM LEFT OUTER JOIN 
                             (RESERVATION NATURAL JOIN HAS_ROOM 
-                            ON R.ReservationID <> reservation_id)
-                    WHERE   (RM.RoomID = room_id) AND (Location = loc) 
-                            AND (Cancelled = 0) AND ((new_start > StartDate) AND 
-                            (new_start < EndDate) OR (new_end > StartDate) AND (new_end < EndDate))";
+                            ON R.ReservationID <> ".$rsv_id.")
+                    WHERE   (RM.RoomID = ".$room_id.") AND (Location = ".$loccation.") 
+                            AND (Cancelled = 0) AND ((".$start_date." > StartDate) AND 
+                            (".$start_date." < EndDate) OR (".$start_date." > StartDate) 
+                            AND (".$start_date." < EndDate))";
         
         $result = mysql_query($sql_query) or die(mysql_error());
         if (mysql_fetch_object($result) == 0) {
