@@ -62,9 +62,9 @@ Location:
 <br>
 
 Start Date:
-<input name="start_date" />
+<input type="date" name="start_date" />
 End Date:
-<input name="end_date" />
+<input type="date" name="end_date" />
 
 <input type="submit" />
 
