@@ -20,12 +20,14 @@ mysql_connect($host,$db_username,$db_password) or die( "Unable to connect");;
 mysql_select_db($database) or die( "Unable to select database");
 
 // Search availability
-$sql_query = "";
-$result = mysql_query($sql_query) or die(mysql_error());
+// $sql_query = "";
+// $result = mysql_query($sql_query) or die(mysql_error());
 
-if () { //not available
+// $err;
+// if (mysql_num_rows($result) == 0) { //not available
+//     $err = "Room not available";
+// }
 
-}
 
 // Current rooms info
 $sql_query = "SELECT    RM.*, IncludeExtraBed
@@ -48,6 +50,7 @@ Hi <?php echo $usn; ?>
 <body>
 <center>
 <br><br><br>
+
 <b><p>Confirm Details</p></b>
 Rooms are available. Please confirm details below before submitting.
 <br><br>

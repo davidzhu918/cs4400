@@ -32,7 +32,27 @@ if (isset($_POST['start']) && isset($_POST['end'])) {
     } else {
         $_SESSION['start'] = $start_date;
         $_SESSION['end'] = $end_date;
-        redirect('rsv_update_book.php');
+        mysql_connect($host,$db_username,$db_password) or die( "Unable to connect");;
+        mysql_select_db($database) or die( "Unable to select database");
+
+        $sql_query = "SELECT    *
+                    FROM    ROOM AS RM
+                    WHERE   Location = '".$location."' AND NOT EXISTS (
+                                SELECT  RM.*
+                                FROM    ROOM AS RM NATURAL JOIN HAS_ROOM 
+                                        NATURAL JOIN RESERVATION AS R
+                                WHERE   (Cancelled = 0) AND ('".$start_date."' BETWEEN R.StartDate AND R.EndDate
+                                        OR '".$end_date."' BETWEEN R.StartDate AND R.EndDate))";
+        $result = mysql_query($sql_query) or die(mysql_error());
+
+        if (mysql_num_rows($result) == 0) {
+            $err = 'Room not available';
+
+        } else {
+            // $_SESSION['result'] = $result;
+            redirect('rsv_update_book.php');
+        }
+        
     }
 }
 ?>
