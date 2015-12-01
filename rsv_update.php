@@ -21,7 +21,7 @@ if (isset($_POST['id'])) {
 
     $sql_query = "SELECT DISTINCT    StartDate, EndDate, Location, ReservationID, RoomID
                     FROM    RESERVATION NATURAL JOIN HAS_ROOM
-                    WHERE   Username = ".$usn." AND ReservationID = ".$id." AND Cancelled
+                    WHERE   Username = '".$usn."' AND ReservationID = ".$id." AND Cancelled
                             = 0 AND StartDate > ".$today;
     $result = mysql_query($sql_query);
 
