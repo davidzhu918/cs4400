@@ -18,6 +18,30 @@ if (isset($_POST['logout'])) {
     header('Location: index.php');
     exit();
 }
+
+if (isset($_POST['nameOnCard']) && isset($_POST['cardNumber']) 
+	&& isset($_POST['expDate']) && isset($_POST['cvv'])) {
+	$name_on_card = $_POST['nameOnCard'];
+	$card_number = $_POST['cardNumber'];
+	$exp_date = $_POST['expDate'];
+	$cvv = $_POST['cvv'];
+
+	$sql_query = "INSERT INTO PAYMENT_INFO
+				VALUES 	('".$card_number."', '".$cvv."', '".$exp_date."', '".$name_on_card."', '".$usn."')";
+	$result = mysql_query($sql_query) or die(mysql_error());
+	//redirect('add_card.php');
+
+}
+
+if (isset($_POST['delete'])) {
+	if (isset($_POST['card'])) {
+        $card_id = $_POST['card'];
+        $sql_query = "DELETE FROM PAYMENT_INFO
+        				WHERE 	CardID = '".$card_id."' AND Username = '".$usn"'";
+        $result = mysql_query($sql_query) or die(mysql_error());
+        //redirect('add_card.php');
+    }
+}
 ?>
 
 
@@ -52,7 +76,7 @@ Hi <?php echo $usn; ?>
 			<p>CVV:
 			<input name="cvv" value="CVV" />
 			</p>
-			<input type="submit" name="saveCard" value="Save" />
+			<input type="submit" name="save_card" value="Save" />
 			</form>
 		</td>
 	</tr>
@@ -72,7 +96,7 @@ Hi <?php echo $usn; ?>
     					}
 					?>
 				</p>
-				<input type="submit" name="submit" value="Submit" />
+				<input type="submit" name="delete" value="Delete" />
 			</form>
 		</td>
 	</tr>
