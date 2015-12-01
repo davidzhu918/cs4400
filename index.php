@@ -11,13 +11,13 @@ if (isset($_POST['username']) && isset($_POST['password']))  {
     mysql_connect($host,$db_username,$db_password) or die( "Unable to connect");;
     mysql_select_db($database) or die( "Unable to select database");
     //Our SQL Query
-    $sql_query = "SELECT Username FROM CUSTOMER 
+    $sql_query = "SELECT COUNT(*) FROM CUSTOMER 
                 WHERE BINARY (Username = '".$usn."' AND Password = '".$pwd."')";  
     //Run our sql query
     $result = mysql_query ($sql_query)  or die(mysql_error());  
 
     //this is where the actual verification happens 
-    if(mysql_num_rows($result) == 1){ 
+    if(mysql_fetch_object($result) == 1){ 
 
         // store session data
         $_SESSION['usn']= $usn;
@@ -26,11 +26,11 @@ if (isset($_POST['username']) && isset($_POST['password']))  {
         redirect('functionality_customer.php');
         exit();
     }
-    $sql_query = "SELECT Username FROM MANAGEMENT 
+    $sql_query = "SELECT COUNT(*) FROM MANAGEMENT 
             WHERE BINARY (Username = '".$usn."' AND Password = '".$pwd."')";  
 
     $result = mysql_query($sql_query) or die(mysql_error());
-    if (mysql_num_rows($result) == 1) {
+    if (mysql_fetch_object($result) == 1) {
         // store session data
         $_SESSION['usn']= $usn;
         $_SESSION['identity'] = "manager";
