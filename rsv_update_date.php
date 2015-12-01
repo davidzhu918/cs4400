@@ -43,8 +43,8 @@ if (isset($_POST['start']) && isset($_POST['end'])) {
                             ON R.ReservationID <> ".$rsv_id.")
                     WHERE   (RM.RoomID = ".$room_id.") AND (RM.Location = '".$location."') 
                             AND (Cancelled = 0) AND (('".$start_date."' > StartDate) AND 
-                            ('".$start_date."' < EndDate) OR ('".$start_date."' > StartDate) 
-                            AND ('".$start_date."' < EndDate))";
+                            ('".$start_date."' < EndDate) OR ('".$end_date."' > StartDate) 
+                            AND ('".$end_date."' < EndDate))";
         
         $result = mysql_query($sql_query) or die(mysql_error());
         if (mysql_fetch_object($result) == 0) {
