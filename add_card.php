@@ -54,11 +54,12 @@ if (isset($_POST['nameOnCard']) && isset($_POST['cardNumber'])
 if (isset($_POST['delete'])) {
 	if (isset($_POST['card'])) {
         $card_id = $_POST['card'];
-        $sql_query = "UPDATE PAYMENT_INFO
-                        SET     CardID = '0000000000000000'
-        				WHERE 	CardID = '".$card_id."' AND Username = '".$usn."'";
-        $result = mysql_query($sql_query);
-        redirect('add_card.php');
+
+        // $sql_query = "UPDATE PAYMENT_INFO
+        //                 SET     CardID = '0000000000000000'
+        // 				WHERE 	CardID = '".$card_id."' AND Username = '".$usn."'";
+        // $result = mysql_query($sql_query);
+        // redirect('add_card.php');
     }
 }
 
@@ -83,7 +84,7 @@ Hi <?php echo $usn; ?>
 
 <body>
 <center>
-<br><b>Payment Information</p></b>
+<br><b>Payment Information: <?php echo $card_id;?></p></b>
 <table>
 	<tr>
 		<td>
