@@ -16,8 +16,8 @@ $sql_query = "SELECT    *
                             SELECT  RM.*
                             FROM    ROOM AS RM NATURAL JOIN HAS_ROOM 
                                         NATURAL JOIN RESERVATION AS R
-                            WHERE   (Cancelled = 0) AND ('".$start."' BETWEEN R.StartDate AND R.EndDate
-                                    OR '".$end."' BETWEEN R.StartDate AND R.EndDate))";
+                            WHERE   (Cancelled = 0) AND (".$start." BETWEEN R.StartDate AND R.EndDate
+                                    OR ".$end." BETWEEN R.StartDate AND R.EndDate))";
 $result = mysql_query($sql_query) or die(mysql_error());
 
 if (isset($_POST['logout'])) {
@@ -67,14 +67,13 @@ Hi <?php echo $usn; ?>
 <b><p>Available Rooms</p></b>
 
 <?php
-$sql_query = "SELECT    *
-                FROM    ROOM AS RM
-                WHERE   Location = '".$location."' AND NOT EXISTS (
-                            SELECT  RM.*
-                            FROM    ROOM AS RM NATURAL JOIN HAS_ROOM 
-                                        NATURAL JOIN RESERVATION AS R
-                            WHERE   (Cancelled = 0) AND ('".$start."' BETWEEN R.StartDate AND R.EndDate
-                                    OR '".$end."' BETWEEN R.StartDate AND R.EndDate))";
+$sql_query = "SELECT * 
+            FROM ROOM AS RM
+            WHERE RM.Location =  '".$location."' AND (RM.RoomID NOT IN (
+                SELECT RMM.RoomID
+                FROM ROOM AS RMM NATURAL JOIN HAS_ROOM NATURAL JOIN RESERVATION AS R
+                WHERE (Cancelled =0) AND ('".$start."' BETWEEN R.StartDate 
+                    AND R.EndDate OR  '".$end."' BETWEEN R.StartDate AND R.EndDate)))";
 $result = mysql_query($sql_query) or die(mysql_error());
 
 
