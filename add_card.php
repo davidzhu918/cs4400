@@ -52,27 +52,18 @@ if (isset($_POST['nameOnCard']) && isset($_POST['cardNumber'])
 }
 
 if (isset($_POST['delete'])) {
-	if (isset($_POST['card'])) {
-        $card_id = $_POST['card'];
-        $sql_query = "SELECT MAX(EndDate)
-        				FROM RESERVATION
-        				WHERE CardID = '".$card_id."' AND Username = '".$usn."'";
-        $result = mysql_query($sql_query) or die(mysql_error());
-        if (mysql_fetch_object($result) > $today) {
-        	$sql_query = "DELETE FROM PAYMENT_INFO
-        				WHERE 	CardID = '".$card_id."' AND Username = '".$usn."'";
-        	mysql_query($sql_query);
-        	redirect('add_card.php');
-        } else {
-        	$err2 = 'This card is bound to a transaction that hasn\'t end yet.';
-        }
-        // $sql_query = "UPDATE PAYMENT_INFO
-        //                 SET     CardID = '0000000000000000'
-        // 				WHERE 	CardID = '".$card_id."' AND Username = '".$usn."'";
-        // $result = mysql_query($sql_query);
-        // redirect('add_card.php');
+    $card_id = $_POST['card'];
+    $sql_query = "SELECT MAX(EndDate)
+    				FROM RESERVATION
+    				WHERE CardID = '".$card_id."' AND Username = '".$usn."'";
+    $result = mysql_query($sql_query) or die(mysql_error());
+    if (mysql_fetch_object($result) > $today) {
+    	$sql_query = "DELETE FROM PAYMENT_INFO
+    				WHERE 	CardID = '".$card_id."' AND Username = '".$usn."'";
+    	mysql_query($sql_query) or die(mysql_error());
+    	redirect('add_card.php');
     } else {
-    	$err2 = 'You have to select one card to delete';
+    	$err2 = 'This card is bound to a transaction that hasn\'t end yet.';
     }
 }
 
@@ -126,7 +117,7 @@ Hi <?php echo $usn; ?>
 		<td>
 			<p><b>Delete Card</b></p>
 				<p>Card Number:
-					<form action="" method="POST" />
+                    <form action="" method="POST" />
 					<?php
                         echo "<select name=\"card\">";
     					if (mysql_num_rows($result) != 0) {
@@ -137,9 +128,7 @@ Hi <?php echo $usn; ?>
         					echo "</select>";
     					}
 					?>
-					</form>
 				</p>
-                <form action="" method="POST" />
 				<input type="submit" name="delete" value="Delete" />
 				<p> <?php echo "$err2"; ?>
                 </form>
