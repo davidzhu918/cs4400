@@ -41,10 +41,19 @@ if (isset($_POST['nameOnCard']) && isset($_POST['cardNumber'])
     } else if (strlen($cvv) != 3) {
         $err1 = 'cvv should be 3 digits';
 	} else {
-		$sql_query = "INSERT INTO PAYMENT_INFO
-				VALUES 	('".$card_number."', '".$cvv."', '".$exp_date."', '".$name_on_card."', '".$usn."')";
-		$result = mysql_query($sql_query) or die(mysql_error());
-		redirect('add_card.php');
+		$sql_query = "SELECT CardID
+						FROM 	PAYMENT_INFO
+						WHERE 	CardID = '".$card_number."'";
+		$result = mysql_query($result) or die(mysql_error());
+		if (mysql_num_rows($result) == 0) {
+			$sql_query = "INSERT INTO PAYMENT_INFO
+							VALUES 	('".$card_number."', '".$cvv."', '".$exp_date."', '".$name_on_card."', '".$usn."')";
+			$result = mysql_query($sql_query) or die(mysql_error());
+			redirect('add_card.php');
+		} else {
+			$err1 = 'Someone has already been added';
+		}
+		
 	}
 	
 	
