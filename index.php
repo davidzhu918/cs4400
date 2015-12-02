@@ -2,7 +2,6 @@
 session_start();
 include 'dbinfo.php';
 
-if (isset($_POST['login'])) {
 if (isset($_POST['username']) && isset($_POST['password']))  { 
     $usn = $_POST['username']; //ssn of the text field for employee ssn 
     $pwd = $_POST['password'];
@@ -14,37 +13,34 @@ if (isset($_POST['username']) && isset($_POST['password']))  {
 
 
 
-    $sql_query = "SELECT COUNT(*) FROM CUSTOMER 
+    $sql_query = "SELECT Username FROM CUSTOMER 
                 WHERE BINARY (Username = '".$usn."' AND Password = '".$pwd."')";  
 
     //Run our sql query
-    $result = mysql_query ($sql_query)  or die(mysql_error());  
+    $result = mysql_query ($sql_query)  or die(mysql_error());
 
     //this is where the actual verification happens 
-    if(mysql_fetch_object($result) == 1){ 
-
+    if(mysql_num_rows($result) == 1){ 
         // store session data
         $_SESSION['usn']= $usn;
         $_SESSION['identity'] = "customer";
 
         redirect('functionality_customer.php');
-        exit();
     }
 
 
 
-    $sql_query = "SELECT COUNT(*) FROM MANAGEMENT 
-            WHERE BINARY (Username = '".$usn."' AND Password = '".$pwd."')";  
-
-
+    $sql_query = "SELECT Username FROM MANAGEMENT 
+            WHERE BINARY (Username = '".$usn."' AND Password = '".$pwd."')";
     $result = mysql_query($sql_query) or die(mysql_error());
-    if (mysql_fetch_object($result) == 1) {
+    $row = mysql_fetch_row($result);
+
+    if (mysql_num_rows($result) == 1) {
         // store session data
         $_SESSION['usn']= $usn;
         $_SESSION['identity'] = "manager";
 
         redirect('functionality_manager.php');
-        exit();
     }
 
     //then just above your login form or where ever you want the error to be displayed you just put in 
@@ -54,10 +50,8 @@ if (isset($_POST['username']) && isset($_POST['password']))  {
 if (isset($_SESSION['usn'])) {
     redirect("functionality_".$_SESSION['identity'].".php");
 }    
-}
-if (isset($_POST['signup'])) { 
-    error_reporting(E_ALL);
-ini_set('display_errors','On');
+
+if (isset($_POST['signup'])) {
     redirect('user_registration.php');
 }
 ?>
