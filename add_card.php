@@ -55,7 +55,7 @@ if (isset($_POST['delete'])) {
 	if (isset($_POST['card'])) {
         $card_id = $_POST['card'];
         $sql_query = "SELECT MAX(EndDate)
-        				FROM RESERVAION
+        				FROM RESERVATION
         				WHERE CardID = '".$card_id."' AND Username = '".$usn."'";
         $result = mysql_query($sql_query) or die(mysql_error());
         if (mysql_fetch_object($result) > $today) {
