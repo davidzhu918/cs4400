@@ -126,6 +126,7 @@ Hi <?php echo $usn; ?>
 		<td>
 			<p><b>Delete Card</b></p>
 				<p>Card Number:
+					<form action="" method="POST" />
 					<?php
                         echo "<select name=\"card\">";
     					if (mysql_num_rows($result) != 0) {
@@ -136,6 +137,7 @@ Hi <?php echo $usn; ?>
         					echo "</select>";
     					}
 					?>
+					</form>
 				</p>
                 <form action="" method="POST" />
 				<input type="submit" name="delete" value="Delete" />
