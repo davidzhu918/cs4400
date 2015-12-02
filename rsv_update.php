@@ -19,13 +19,13 @@ if (isset($_POST['id'])) {
     mysql_connect($host,$db_username,$db_password) or die( "Unable to connect");;
     mysql_select_db($database) or die( "Unable to select database");
 
-    $sql_query = "SELECT DISTINCT    StartDate, EndDate, Location, ReservationID, RoomID
+    $sql_query = "SELECT DISTINCT    StartDate, EndDate, Location, ReservationID, RoomID, TotalCost
                     FROM    RESERVATION NATURAL JOIN HAS_ROOM
                     WHERE   Username = '".$usn."' AND ReservationID = ".$id." AND Cancelled
-                            = 0 AND StartDate > ".$today;
+                            = 0";
     $result = mysql_query($sql_query);
 
-    if (mysql_num_rows($result) > 1) {
+    if (mysql_num_rows($result) > 0) {
         $row = mysql_fetch_array($result);
         $_SESSION['rsv'] = $row;
         redirect('rsv_update_date.php');

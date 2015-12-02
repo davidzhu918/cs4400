@@ -85,9 +85,9 @@ Rooms are available. Please confirm details below before submitting.
 </table>
 <br>
 Total Cost: <?php
-$total = $_SESSION['total_cost'];
-$cur_start = $rsv['start'];
-$cur_end = $rsv['end'];
+$total = $rsv['TotalCost'];
+$cur_start = $rsv['StartDate'];
+$cur_end = $rsv['EndDate'];
 $total = $total / (strtotime($cur_end) - strtotime($cur_start)) * (strtotime($end) - strtotime($start));
 $_SESSION['total_cost'] = $total;
 echo "$ ".$total.".00";
