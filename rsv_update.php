@@ -25,7 +25,7 @@ if (isset($_POST['id'])) {
                             = 0 AND StartDate > ".$today;
     $result = mysql_query($sql_query);
 
-    if (mysql_num_rows($result) == 1) {
+    if (mysql_num_rows($result) > 1) {
         $row = mysql_fetch_array($result);
         $_SESSION['rsv'] = $row;
         redirect('rsv_update_date.php');
