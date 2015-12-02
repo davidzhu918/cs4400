@@ -9,6 +9,7 @@ mysql_select_db($database) or die( "Unable to select database");
 $start = $_SESSION['start'];
 $end = $_SESSION['end'];
 $location = $_SESSION['location'];
+$err = '';
 
 $sql_query = "SELECT    *
                 FROM    ROOM AS RM
