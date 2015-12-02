@@ -34,36 +34,33 @@ Hi <?php echo $usn; ?>
 <form action="" method="POST">
 <b><p>Revenue Report</p></b>
 
-<input type="submit" name="submit" value="Submit" />
 <input type="submit" name="go_back" value="Go Back" />
 </form>
 
 <?php
-if (isset($_POST['submit'])) {
-    $location = $_POST['location'];
-    $sql_query = "SELECT    M, Location, SUM(TotalCost) AS Revenue
-                    FROM    (
-                         SELECT month(StartDate) AS M, Location, TotalCost
-                         FROM (RESERVATION NATURAL JOIN HAS_ROOM)
-                    ) AS K
-                    WHERE M = 8 OR M = 9
-                    GROUP BY M, Location";
+$location = $_POST['location'];
+$sql_query = "SELECT    M, Location, SUM(TotalCost) AS Revenue
+                FROM    (
+                     SELECT month(StartDate) AS M, Location, TotalCost
+                     FROM (RESERVATION NATURAL JOIN HAS_ROOM)
+                ) AS K
+                WHERE M = 8 OR M = 9
+                GROUP BY M, Location";
 
-    $result = mysql_query ($sql_query)  or die(mysql_error());
+$result = mysql_query ($sql_query)  or die(mysql_error());
 
-    echo "<table border=\"1\"><tr>
-        <td>Month</td>
-        <td>Location</td>
-        <td>Total Revenue</td></tr>";
-    while ($row = mysql_fetch_array($result)) {
-        echo "<tr>";
-        echo "<td>".$row['M']."</td>";
-        echo "<td>".$row['Location']."</td>";
-        echo "<td>".$row['Revenue']."</td>";
-        echo "</tr>";
-    }
-    echo "</table><br>";
+echo "<table border=\"1\"><tr>
+    <td>Month</td>
+    <td>Location</td>
+    <td>Total Revenue</td></tr>";
+while ($row = mysql_fetch_array($result)) {
+    echo "<tr>";
+    echo "<td>".$row['M']."</td>";
+    echo "<td>".$row['Location']."</td>";
+    echo "<td>".$row['Revenue']."</td>";
+    echo "</tr>";
 }
+echo "</table><br>";
 ?>
 
 </center>
