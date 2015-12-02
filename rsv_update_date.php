@@ -78,9 +78,9 @@ Current Start Date: <?php echo $cur_start; ?>
 Current End Date: <?php echo $cur_end; ?>
 <form action="" method="POST">
 New Start Date:
-<input name="start" />
+<input type = "date" name="start" />
 New End Date:
-<input name="end" />
+<input type = "date" name="end" />
 <input type="submit" name="search" value="Search Availability" />
 <input type="submit" name="go_back" value="Go Back" />
 </form>
