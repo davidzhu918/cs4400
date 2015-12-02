@@ -44,7 +44,7 @@ if (isset($_POST['nameOnCard']) && isset($_POST['cardNumber'])
 		$sql_query = "SELECT CardID
 						FROM 	PAYMENT_INFO
 						WHERE 	CardID = '".$card_number."'";
-		$result = mysql_query($result) or die(mysql_error());
+		$result = mysql_query($sql_query) or die(mysql_error());
 		if (mysql_num_rows($result) == 0) {
 			$sql_query = "INSERT INTO PAYMENT_INFO
 							VALUES 	('".$card_number."', '".$cvv."', '".$exp_date."', '".$name_on_card."', '".$usn."')";
