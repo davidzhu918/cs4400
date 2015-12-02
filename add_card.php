@@ -29,17 +29,17 @@ if (isset($_POST['nameOnCard']) && isset($_POST['cardNumber'])
 	$cvv = $_POST['cvv'];
     
 	if (preg_match('/[^A-Za-z]+/', $name_on_card)) {
-		$err = 'Name should only contain english letters';
+		$err1 = 'Name should only contain english letters';
 	} else if (preg_match('/[^0-9]+/', $card_number)) {
-		$err = 'Card Number should be numerical';
+		$err1 = 'Card Number should be numerical';
 	} else if (strlen($card_number) != 16) {
-		$err = 'Card number should be a 16 digits serial number';
+		$err1 = 'Card number should be a 16 digits serial number';
 	} else if ($exp_date < $today) {
-		$err = 'Card already expired';
+		$err1 = 'Card already expired';
 	} else if (preg_match('/[^0-9]+/', $cvv)) {
-		$err = 'cvv should be numerical';
+		$err1 = 'cvv should be numerical';
     } else if (strlen($cvv) != 3) {
-        $err = 'cvv should be 3 digits';
+        $err1 = 'cvv should be 3 digits';
 	} else {
 		$sql_query = "INSERT INTO PAYMENT_INFO
 				VALUES 	('".$card_number."', '".$cvv."', '".$exp_date."', '".$name_on_card."', '".$usn."')";
@@ -54,17 +54,31 @@ if (isset($_POST['nameOnCard']) && isset($_POST['cardNumber'])
 if (isset($_POST['delete'])) {
 	if (isset($_POST['card'])) {
         $card_id = $_POST['card'];
-        $sql_query = "UPDATE PAYMENT_INFO
-                        SET     CardID = '0000000000000000'
+        $sql_query = "SELECT MAX(EndDate)
+        				FROM RESERVAION
+        				WHERE CardID = '".$card_id."' AND Username = '".$usn."'";
+        $result = mysql_query($sql_query) or die(mysql_error());
+        if (mysql_fetch_object($result) > $today) {
+        	$sql_query = "DELETE FROM PAYMENT_INFO
         				WHERE 	CardID = '".$card_id."' AND Username = '".$usn."'";
-        $result = mysql_query($sql_query);
-        redirect('add_card.php');
+        	mysql_query($sql_query);
+        	redirect('add_card.php');
+        } else {
+        	$err2 = 'This card is bound to a transaction that hasn\'t end yet.';
+        }
+        // $sql_query = "UPDATE PAYMENT_INFO
+        //                 SET     CardID = '0000000000000000'
+        // 				WHERE 	CardID = '".$card_id."' AND Username = '".$usn."'";
+        // $result = mysql_query($sql_query);
+        // redirect('add_card.php');
+    } else {
+    	$err2 = 'You have to select one card to delete';
     }
 }
 
 if (isset($_POST['done'])) {
-    error_reporting(E_ALL);
-ini_set('display_errors','On');
+//     error_reporting(E_ALL);
+// ini_set('display_errors','On');
 	redirect('room_book.php');
 }
 ?>
@@ -106,7 +120,7 @@ Hi <?php echo $usn; ?>
 		</td>
 	</tr>
 	<?php
-		echo "$err";
+		echo "$err1";
 	?>
 	<tr>
 		<td>
@@ -125,6 +139,7 @@ Hi <?php echo $usn; ?>
 				</p>
                 <form action="" method="POST" />
 				<input type="submit" name="delete" value="Delete" />
+				<p> <?php echo "$err2"; ?>
                 </form>
 		</td>
 	</tr>
